@@ -1,0 +1,4 @@
+INDEX VERSION 1.122+C:\Users\torto\Desktop\Universidade\Beatriz\Trabalho Master\trunk\Implementação\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+522319564.index
+2473817216.index
+877121296.index

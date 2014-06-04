@@ -1,0 +1,44 @@
+package br.com.cisterlabs.universidade.controle;
+
+import java.lang.reflect.Field;
+
+import br.com.cisterlabs.universidade.entidade.EFuncionario;
+import br.com.cisterlabs.universidade.entidade.EPessoa;
+
+public class CControleGeral
+{
+
+	public static void main(String[] args)
+	{
+		try
+		{
+			Object obj = EFuncionario.class.newInstance();
+			
+			for(Field fiel : obj.getClass().getDeclaredFields()){
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+}

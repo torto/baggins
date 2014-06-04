@@ -1,0 +1,102 @@
+package br.edu.utfpr.baggins.client;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlPanelGroup;
+
+import org.hibernate.Session;
+
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.CTabelaDinamica;
+import br.edu.utfpr.baggins.entidades.ECategoria;
+import br.edu.utfpr.baggins.util.HibernateUtil;
+
+@ManagedBean
+@ViewScoped
+public class CTelaEmprestimo
+{
+
+	private HtmlPanelGroup topo;
+	private CTabelaDinamica tabela;
+	private ECategoria categoria; 
+
+	public CTelaEmprestimo() 
+	{
+		instanciarItens();
+		setarInformacoes(); 
+	}
+
+	private void instanciarItens() 
+	{
+		topo = new HtmlPanelGroup();
+
+		// form TEste
+		categoria = new ECategoria();
+		
+		tabela = new CTabelaDinamica(ECategoria.class)
+		{
+			
+			@Override
+			public List<?> arrayList() 
+			{
+				ECategoria categoria = new ECategoria();
+				categoria.setId(1l);
+				categoria.setNome("nome");
+				categoria.setDescricao("asdasda");
+				
+				Session sesso = HibernateUtil.openSession();
+				
+				sesso.save(categoria);
+				sesso.disconnect();
+//		
+//				ECategoria categoria1 = new ECategoria();
+//				categoria1.setNome("nome1");
+//				categoria1.setId(2l);
+//				categoria1.setSobrenome("sobrenome1");
+//		
+//				ECategoria categoria2 = new ECategoria();
+//				categoria2.setNome("nome2");
+//				categoria2.setId(3l);
+//				categoria2.setSobrenome("sobrenome2");
+//		
+//				ECategoria categoria3 = new ECategoria();
+//				categoria3.setNome("nome3");
+//				categoria3.setId(4l);
+//				categoria3.setSobrenome("sobrenome3");
+//		
+				ArrayList<ECategoria> aa = new ArrayList<ECategoria>();
+//				aa.add(categoria3);
+//				aa.add(categoria2);
+//				aa.add(categoria1);
+//				aa.add(categoria);
+				return aa;
+			}
+		};
+	}
+		
+
+	private void setarInformacoes()
+	{
+		
+		topo.setLayout("block");
+		topo.getChildren().add(tabela.getPrincipal());
+
+	}
+
+
+	public HtmlPanelGroup getTopo()
+	{
+		return topo;
+	}
+
+	public void setTopo(HtmlPanelGroup topo)
+	{
+		this.topo = topo;
+	}
+	
+	
+
+}

@@ -1,0 +1,125 @@
+package br.edu.utfpr.baggins.client.cadastro.ambientes;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.component.html.HtmlPanelGroup;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.hibernate.Query;
+
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.CTabelaDinamica;
+import br.edu.utfpr.baggins.entidades.EAmbiente;
+import br.edu.utfpr.baggins.util.CSessao;
+
+@Named("ambientes")
+@ConversationScoped
+public class CTelaAmbientes implements Serializable
+{
+
+	@Inject
+	private Conversation conversation;
+
+	private HtmlPanelGroup pgPagina;
+
+	private CTabelaDinamica tabela;
+
+	private ArrayList<EAmbiente> array;
+
+	private EAmbiente ambiente;
+
+	public CTelaAmbientes()
+	{
+	}
+
+	@PostConstruct
+	public void ini()
+	{
+		conversation.begin();
+		if (conversation.isTransient())
+		{
+			
+			instanciarItens();
+			setarInformacoes();
+		}
+		else
+		{
+			conversation.end();
+			conversation.begin();
+			instanciarItens();
+			setarInformacoes();
+		}
+	}
+
+	private void instanciarItens()
+	{
+
+		pgPagina = new HtmlPanelGroup();
+
+		tabela = new CTabelaDinamica(EAmbiente.class)
+		{
+
+			@Override
+			public List<?> arrayList()
+			{
+
+				CSessao sessao = new CSessao();
+				sessao.abrirSessao();
+
+				Query q = sessao
+						.createQuery("SELECT ambiente FROM br.edu.utfpr.baggins.entidades.EAmbiente ambiente");
+
+				array = (ArrayList<EAmbiente>) q.list();
+
+				return array;
+			}
+		};
+
+	}
+
+	private void instanciarTabela()
+	{
+		tabela = new CTabelaDinamica(ambiente.getClass())
+		{
+
+			@Override
+			public List<?> arrayList()
+			{
+
+				CSessao sessao = new CSessao();
+				sessao.abrirSessao();
+
+				Query q = sessao
+						.createQuery("SELECT ambiente FROM br.edu.utfpr.baggins.entidades.EAmbiente ambiente");
+
+				array = (ArrayList<EAmbiente>) q.list();
+
+				return array;
+			}
+		};
+	}
+
+	private void setarInformacoes()
+	{
+
+		pgPagina.setLayout("block");
+		pgPagina.getChildren().add(tabela.getPrincipal());
+
+	}
+
+	public HtmlPanelGroup getPgPagina()
+	{
+		return pgPagina;
+	}
+
+	public void setPgPagina(HtmlPanelGroup pgPagina)
+	{
+		this.pgPagina = pgPagina;
+	}
+
+}

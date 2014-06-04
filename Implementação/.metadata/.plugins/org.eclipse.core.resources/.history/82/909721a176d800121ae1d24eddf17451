@@ -1,0 +1,9 @@
+package br.edu.utfpr.baggins.entidades;
+
+public class EMaterial extends EMarca {
+	
+	public void tipo(){
+		
+	}
+
+}

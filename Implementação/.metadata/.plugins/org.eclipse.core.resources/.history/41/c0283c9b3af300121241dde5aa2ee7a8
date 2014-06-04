@@ -1,0 +1,422 @@
+package br.edu.utfpr.baggins.client.componentes.ctabeladinamica;
+
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlInputText;
+
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.event.SelectEvent;
+
+import br.edu.utfpr.baggins.entidades.AbstraticEnty;
+
+@ManagedBean
+@SessionScoped
+public class TabelaDinamicaBean
+{
+	private static HashMap<String, UIComponent> inputsMap = new HashMap<String, UIComponent>();
+
+	private static HashMap<Integer, String> nomeColunasMap = new HashMap<Integer, String>();
+
+	private static HashMap<String, HtmlCommandButton> buttonMap = new HashMap<String, HtmlCommandButton>();
+
+	private static HashMap<Object, Object> mapaPrincipal = new HashMap<>();
+	private HashMap<Object, Object> mapaComboSelecionado = new HashMap<Object, Object>();
+
+	private DataModel<Object> dataModel;
+
+	private static Class<?> classeGeral;
+
+	private static String classeCombo = new String();
+	private static String whereCombo = new String();
+
+	private String comboSelecionado;
+
+	private Long id;
+
+	private Object objetoSelecionado;
+
+	public TabelaDinamicaBean()
+	{
+		
+	}
+
+	public void finalizarScope()
+	{
+		try
+		{
+			finalize();
+		}
+		catch (Throwable e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public List<Object> getArray()
+	{
+		return (List<Object>) CTabelaDinamica.getArray();
+	}
+
+	public DataModel<Object> getModel()
+	{
+		return dataModel = new DataModel<Object>(getArray());
+	}
+
+	public Long getId()
+	{
+		return id;
+	}
+
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+
+	public Object getObjetoSelecionado()
+	{
+		return objetoSelecionado;
+	}
+
+	public static HashMap<String, UIComponent> getInputsMap()
+	{
+		return inputsMap;
+	}
+
+	public static void setInputsMap(HashMap<String, UIComponent> inputsMap)
+	{
+		TabelaDinamicaBean.inputsMap = inputsMap;
+	}
+
+	public static HashMap<Integer, String> getNomeColunasMap()
+	{
+		return nomeColunasMap;
+	}
+
+	public static void setNomeColunasMap(HashMap<Integer, String> nomeColunasMap)
+	{
+		TabelaDinamicaBean.nomeColunasMap = nomeColunasMap;
+	}
+
+	public void setObjetoSelecionado(Object objetoSelecionado)
+	{
+		this.objetoSelecionado = objetoSelecionado;
+	}
+
+	public static HashMap<String, HtmlCommandButton> getButtonMap()
+	{
+		return buttonMap;
+	}
+
+	public static void setButtonMap(HashMap<String, HtmlCommandButton> buttonMap)
+	{
+		TabelaDinamicaBean.buttonMap = buttonMap;
+	}
+
+	public static String getClasseCombo()
+	{
+		return classeCombo;
+	}
+
+	public static void setClasseCombo(String classeCombo)
+	{
+		TabelaDinamicaBean.classeCombo = classeCombo;
+	}
+
+	public static String getWhereCombo()
+	{
+		return whereCombo;
+	}
+
+	public static void setWhereCombo(String whereCombo)
+	{
+		TabelaDinamicaBean.whereCombo = whereCombo;
+	}
+
+	public String getComboSelecionado()
+	{
+		return comboSelecionado;
+	}
+
+	public void setComboSelecionado(String comboSelecionado)
+	{
+		this.comboSelecionado = comboSelecionado;
+	}
+
+	public static Class<?> getClasseGeral()
+	{
+		return classeGeral;
+	}
+
+	public static void setClasseGeral(Class<?> classeGeral)
+	{
+		TabelaDinamicaBean.classeGeral = classeGeral;
+	}
+
+	public static void criarValoresCombo(String valor)
+	{
+
+		CControleDinamicoPU pu = new CControleDinamicoPU();
+		HashMap<Object, Object> mapa = new HashMap<>();
+
+		List<Object> list = pu.getListDinamicHash(getClasseCombo().toString(),
+				((String) getWhereCombo()).toString());
+
+		for (Object object : list)
+		{
+			mapa.put(((AbstraticEnty) object).getNome().toString(),
+					((AbstraticEnty) object).getIdEntidade().toString());
+		}
+		mapaPrincipal.put(valor, mapa);
+	}
+
+	public HashMap<Object, Object> getListComboBox()
+	{
+		return mapaPrincipal;
+	}
+
+	public HashMap<Object, Object> getMapaComboSelecionado()
+	{
+		return mapaComboSelecionado;
+	}
+
+	public void onRowSelect(SelectEvent event)
+	{
+
+		buttonMap.get("adicionar").setActionExpression(
+				CControleTabelaDinamica.criasMethodExpression(
+						"#{tabelaDinamicaBean.botaoAlterar}", Object.class));
+		buttonMap.get("adicionar").setValue("Alterar");
+
+		buttonMap.get("excluir").setDisabled(false);
+		buttonMap.get("excluir").setStyleClass("btBusca");
+
+		for (Field field : event.getObject().getClass().getDeclaredFields())
+		{
+			field.setAccessible(true);
+			UIComponent input = getInputsMap().get(field.getName());
+			if (input instanceof HtmlInputText && input != null)
+			{
+				try
+				{
+					((HtmlInputText) input).setValue(field.get(event
+							.getObject()));
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			if (input instanceof SelectOneMenu && input != null)
+			{
+				try
+				{
+					getMapaComboSelecionado().put(
+							field.getName(),
+							(((AbstraticEnty) field.get(event.getObject()))
+									.getIdEntidade() + ""));
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+
+			}
+		}
+	}
+
+	public void botaoAlterar()
+	{
+		try
+		{
+			Object obj = objetoSelecionado;
+
+			for (Field field : classeGeral.getDeclaredFields())
+			{
+
+				field.setAccessible(true);
+
+				UIComponent input = getInputsMap().get(field.getName());
+				if (input instanceof HtmlInputText && input != null)
+				{
+					field.set(obj, ((HtmlInputText) input).getValue());
+
+					((HtmlInputText) input).setValue("TESTE");
+				}
+
+				if (input instanceof SelectOneMenu && input != null)
+				{
+
+					field.set(obj, CControleDinamicoPU.getObjectById(
+							CTabelaDinamica.limparNomeClasse(field.getType()
+									.getName()),
+							(String) ((SelectOneMenu) input).getValue()));
+				}
+			}
+			Object objRetorno = CControleDinamicoPU.inserirObjetoRetorno(obj);
+
+			for (Object objj : getArray())
+			{
+				if (((AbstraticEnty) objj).getIdEntidade() == ((AbstraticEnty) obj)
+						.getIdEntidade())
+				{
+					objj = obj;
+				}
+			}
+
+			botaoCancelar();
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void botaoBuscar()
+	{
+		try
+		{
+			String filtro = (String) CTabelaDinamica.getTxbBusca().getValue();
+
+			// List<Object> objRetorno =
+			// CControleDinamicoPU.getListBuscaGenerica(getClasseGeral(),
+			// filtro);
+			List<Object> objRetorno = CControleDinamicoPU.buscaGenericaNova(
+					getClasseGeral(), filtro);
+
+			getArray().clear();
+
+			getArray().addAll(objRetorno);
+
+			botaoCancelar();
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void botaoExcluir()
+	{
+		try
+		{
+			Object obj = objetoSelecionado;
+
+			CControleDinamicoPU.excluirObjeto(obj);
+
+			List<Object> objj = getArray();
+
+			for (int i = 0; i < objj.size(); i++)
+			{
+				Object objeto = objj.get(i);
+
+				if (((AbstraticEnty) objeto).getIdEntidade() == ((AbstraticEnty) obj)
+						.getIdEntidade())
+				{
+					objj.remove(i);
+				}
+			}
+
+			botaoCancelar();
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void botaoAdicionar()
+	{
+
+		try
+		{
+			Object obj = classeGeral.newInstance();
+
+			for (Field field : classeGeral.getDeclaredFields())
+			{
+
+				field.setAccessible(true);
+
+				UIComponent input = getInputsMap().get(field.getName());
+				if (input instanceof HtmlInputText && input != null)
+				{
+					field.set(obj, ((HtmlInputText) input).getValue());
+
+					((HtmlInputText) input).setValue("");
+				}
+
+				if (input instanceof SelectOneMenu && input != null)
+				{
+
+					field.set(obj, CControleDinamicoPU.getObjectById(
+							CTabelaDinamica.limparNomeClasse(field.getType()
+									.getName()),
+							(String) ((SelectOneMenu) input).getValue()));
+				}
+			}
+			Object objRetorno = CControleDinamicoPU.inserirObjetoRetorno(obj);
+
+			getArray().add(objRetorno);
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public String limparNomeClasse(String classe, String valorEstatico)
+	{
+
+		String retorno = classe.replace("class ", "");
+
+		retorno = retorno.replace(valorEstatico, "");
+		return retorno;
+	}
+
+	public void botaoCancelar()
+	{
+		HtmlCommandButton myComponent = (HtmlCommandButton) buttonMap
+				.get("excluir");
+		myComponent.setStyleClass("btBuscaDesabilitado");
+		myComponent.setDisabled(true);
+
+		buttonMap.get("adicionar").setValue("Adicionar");
+		buttonMap.get("adicionar").setActionExpression(
+				CControleTabelaDinamica.criasMethodExpression(
+						"#{tabelaDinamicaBean.botaoAdicionar}", Object.class));
+
+		if (objetoSelecionado != null)
+		{
+			for (Field field : objetoSelecionado.getClass().getDeclaredFields())
+			{
+				UIComponent input = getInputsMap().get(field.getName());
+				if (input instanceof HtmlInputText && input != null)
+				{
+					((HtmlInputText) input).setValue("");
+				}
+				objetoSelecionado = null;
+				mapaComboSelecionado = new HashMap<Object, Object>();
+			}
+		}
+	}
+
+	private String retornoNomeSimples(Field field)
+	{
+		String retorno = field.getName();
+		retorno = retorno.substring(0, 1).toUpperCase() + retorno.substring(1);
+
+		return "get" + retorno;
+	}
+
+}

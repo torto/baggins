@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+	<managed-bean>
+		<managed-bean-name>devolucaoBean</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.client.devolucao.DevolucaoBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>emprestimoBean</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.client.emprestimo.EmprestimoBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>cTelaEmprestimo</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.client.CTelaEmprestimo</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>cTelaAmbiente</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.client.cadastro.ambientes.CTelaAmbientes</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>eCategoria</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.entidades.ECategoria</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>tabelaDinamicaBean</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.client.componentes.ctabeladinamica.TabelaDinamicaBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>eAmbiente</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.entidades.EAmbiente</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>eMarca</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.entidades.EMarca</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>eModelo</managed-bean-name>
+		<managed-bean-class>br.edu.utfpr.baggins.entidades.EModelo</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<application>
+	<message-bundle>br.edu.utfpr.baggins.Mensagens</message-bundle>
+	</application>
+
+</faces-config>

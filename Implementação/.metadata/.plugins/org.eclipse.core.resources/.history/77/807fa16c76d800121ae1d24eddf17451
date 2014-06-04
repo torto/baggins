@@ -1,0 +1,9 @@
+package br.edu.utfpr.baggins.entidades;
+
+public class EMarca {
+
+	public void nome(){
+		
+	}
+	
+}

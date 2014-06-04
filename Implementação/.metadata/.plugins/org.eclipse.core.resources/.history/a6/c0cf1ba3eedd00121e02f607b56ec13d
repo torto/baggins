@@ -1,0 +1,8 @@
+package br.edu.utfpr.baggins.entidades;
+
+import javax.faces.component.html.HtmlCommandButton;
+
+public class EEmprestimo  {
+
+	
+}

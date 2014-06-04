@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;campogrid&apos; in &apos;br.edu.utfpr.baggins.client.componentes.ctabeladinamica.TabelaDinamicaBean.botaoAdicionar()&apos; to &apos;campoGrid&apos;&#x0D;&#x0A;- Original project: &apos;Baggins&apos;&#x0D;&#x0A;- Original element: &apos;br.edu.utfpr.baggins.client.componentes.ctabeladinamica.TabelaDinamicaBean.botaoAdicionar().campogrid&apos;&#x0D;&#x0A;- Renamed element: &apos;campogrid&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;campogrid&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;br.edu.utfpr.baggins.client.componentes.ctabeladinamica{TabelaDinamicaBean.java[TabelaDinamicaBean~botaoAdicionar@campogrid!5558!5579!5565!5573!QString;!0!false" name="campoGrid" references="true" stamp="1372718064877" version="1.0"/>
+</session>

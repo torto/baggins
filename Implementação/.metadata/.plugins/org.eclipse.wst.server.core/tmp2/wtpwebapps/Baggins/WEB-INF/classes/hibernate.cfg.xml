@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
+  <property name="hibernate.connection.password"/>
+  <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/baggins</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <property name="hibernate.show_sql">true</property>
+  <mapping class="br.edu.utfpr.baggins.entidades.ECategoria"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EMarca"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EModelo"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EAmbiente"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EFornecedores"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EMaterial"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.ETipoMaterial"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EMaterialConsumo"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EEquipamentos"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EUsuario"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EPerfil"/>
+  <mapping class="br.edu.utfpr.baggins.entidades.EAcessos"/>
+ </session-factory>
+</hibernate-configuration>

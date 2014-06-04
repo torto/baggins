@@ -1,0 +1,58 @@
+package br.edu.utfpr.baggins.client.cadastro.ambientes;
+
+import java.util.List;
+
+import javax.faces.component.html.HtmlPanelGroup;
+
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.CTabelaDinamica;
+import br.edu.utfpr.baggins.entidades.EAmbiente;
+
+public class CTelaAmbientes
+{
+
+	private HtmlPanelGroup pgPagina;
+	
+	private CTabelaDinamica tabela;
+	
+	public CTelaAmbientes()
+	{
+		// TODO Auto-generated constructor stub
+	}
+	
+	private void instanciarItens(){
+		
+		pgPagina = new HtmlPanelGroup();
+		
+		tabela = new CTabelaDinamica(EAmbiente.class)
+		{
+			
+			@Override
+			public List<?> arrayList()
+			{
+				return null;
+			}
+		};
+		
+	}
+	
+	private void setarInformacoes()
+	{
+		
+		pgPagina.setLayout("block");
+		pgPagina.getChildren().add(tabela.getPrincipal());
+
+	}
+
+
+	public HtmlPanelGroup getPagina()
+	{
+		return pgPagina;
+	}
+
+	public void setPagina(HtmlPanelGroup topo)
+	{
+		this.pgPagina = pgPagina;
+	}
+	
+	
+}

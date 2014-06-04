@@ -1,0 +1,168 @@
+package br.edu.utfpr.baggins.client.componentes.ctabeladinamica;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.hibernate.Query;
+
+import br.edu.utfpr.baggins.entidades.AbstraticEnty;
+import br.edu.utfpr.baggins.entidades.ECategoria;
+import br.edu.utfpr.baggins.server.controle.VEstaticasHibernate;
+import br.edu.utfpr.baggins.util.CSessao;
+
+public class CControleDinamicoPU
+{
+
+	public static List<Object> getListDinamic(String classe, String where)
+	{
+
+		CSessao sessao = new CSessao();
+		StringBuilder stringQuery = new StringBuilder();
+		List<Object> list = null;
+		try
+		{
+			sessao.abrirSessao();
+
+			stringQuery.append("SELECT obj FROM ");
+			stringQuery.append(VEstaticasHibernate.Clasess.CAMINHO_ENTIDADE);
+			stringQuery.append(classe);
+
+			if (!where.isEmpty())
+			{
+				stringQuery.append(" WHERE ");
+				stringQuery.append(where);
+			}
+
+			Query query = sessao.createQuery(stringQuery.toString());
+
+			list = query.list();
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
+	public  List<Object> getListDinamicHash(String classe,
+			String where)
+	{
+
+		CSessao sessao = new CSessao();
+		HashMap<Object, Object> mapa = new HashMap<>();
+		StringBuilder stringQuery = new StringBuilder();
+		List<Object> list = null;
+		try
+		{
+			sessao.abrirSessao();
+
+			stringQuery.append("SELECT obj FROM ");
+			stringQuery.append(classe);
+			stringQuery.append(" obj");
+
+			if (!where.isEmpty())
+			{
+				stringQuery.append(" WHERE ");
+				stringQuery.append(where);
+			}
+
+			Query query = sessao.createQuery(stringQuery.toString());
+
+			list = query.list();
+
+			
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
+	public static Object getObjectById(String classe, String id)
+	{
+		Object obj = null;
+		CSessao sessao = new CSessao();
+		StringBuilder stringQuery = new StringBuilder();
+		try
+		{
+			sessao.abrirSessao();
+
+			stringQuery.append("SELECT obj FROM ");
+			stringQuery.append(classe);
+			stringQuery.append(" obj ");
+			stringQuery.append(" WHERE obj.id = ");
+			stringQuery.append(id);
+
+			Query query = sessao.createQuery(stringQuery.toString());
+
+			obj = query.uniqueResult();
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return obj;
+
+	}
+
+	public static void inserirObjeto(Object obj)
+	{
+
+		CSessao sessao = new CSessao();
+		try
+		{
+			sessao.abrirSessao();
+
+			if (((AbstraticEnty) obj).getIdEntidade() == null)
+			{
+				((AbstraticEnty) obj).setIdEntidade((long) pegarUltimoId(obj));
+			}
+
+			sessao.inserirOuAlterar(obj, true);
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static long pegarUltimoId(Object obj)
+	{
+		Long retorno = null;
+		String classe = obj.getClass().getName();
+
+		CTabelaDinamica.limparNomeClasse(classe);
+
+		CSessao sessao = new CSessao();
+		try
+		{
+			sessao.abrirSessao();
+			
+			Query q = sessao.createQuery("select max(id) from " + classe + " as obj");
+
+			retorno = (Long) q.uniqueResult();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return retorno;
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println(pegarUltimoId(new ECategoria()));
+	}
+
+}

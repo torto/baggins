@@ -1,0 +1,44 @@
+package br.com.cisterlabs.universidade.controle;
+
+import java.lang.reflect.Field;
+
+import br.com.cisterlabs.universidade.entidade.EFuncionario;
+import br.com.cisterlabs.universidade.entidade.EPessoa;
+
+public class CControleGeral
+{
+
+	public static void main(String[] args)
+	{
+		try
+		{
+			Object obj = CControleGeral.gerarPesso();
+
+			for (Field field : obj.getClass().getDeclaredFields())
+			{
+				field.setAccessible(true);
+				System.out.println(field.get(obj));
+			}
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+
+	
+	public static EFuncionario gerarPesso(){
+		
+		EFuncionario funcionario = new EFuncionario();
+		
+		funcionario.setNome("Guilherme");
+		funcionario.setSobrenome("Berghauser");
+		funcionario.setCargo("Programador");
+		
+		return funcionario;
+		
+		
+	}
+}

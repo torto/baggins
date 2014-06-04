@@ -1,0 +1,15 @@
+1370568358322	Rename type 'CTabelaCampos'
+1370568367368	Rename type 'CTabelawIDGET'
+1370569017853	Delete element
+1370652318645	Rename field 'objeto'
+1370652322494	Rename field 'objetoPuro'
+1370653955413	Rename method 'gerarGridCampo'
+1370654916042	Copy package
+1370654923544	Delete element
+1370655067362	Rename package 'br.edu.utfpr.baggins.client.componentes.CTabelaDinamica'
+1370655090945	Move compilation unit
+1370655786987	Rename package 'br.edu.utfpr.baggins.client.componentes.ctabeladinamica'
+1370655824279	Move compilation unit
+1370699803007	Rename field 'Sobrenome'
+1370700648961	Rename field 'grid'
+1370709429489	Rename method 'obterInformacoesEntidade'

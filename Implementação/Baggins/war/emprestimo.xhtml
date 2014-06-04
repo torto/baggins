@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="centro">
+
+		<div id="tituloPagina">
+
+			<h1>Emprestimo</h1>
+
+			<div class="linhaTitulo" />
+		</div>
+
+		<div id="corpoPagina">
+		
+				<h:form id="formTabelaDinamica">
+					<h:panelGroup layout="block" binding="#{cTelaEmprestimo.topo}" />
+				</h:form>
+
+
+			<div class="conteudoInterno"></div>
+		</div>
+
+	</ui:define>
+</ui:composition>

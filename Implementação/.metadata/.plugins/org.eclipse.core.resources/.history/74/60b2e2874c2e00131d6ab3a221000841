@@ -1,0 +1,7 @@
+function Pessoa() {
+
+	this.getConecao = function(){
+		return conconecao;
+	};
+
+}

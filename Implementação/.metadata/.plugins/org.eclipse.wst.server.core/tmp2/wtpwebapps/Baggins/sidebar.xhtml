@@ -1,0 +1,29 @@
+<ui:composition template="./template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="menu">
+
+		<h:form>
+			<p:growl id="messages" autoUpdate="true" />
+			<p:panelMenu style="width:208px">
+				<p:submenu label="Empréstimo">
+					<p:menuitem value="Empréstimo" icon="ui-icon ui-icon-bullet" />
+					<p:menuitem value="Devolução" />
+					<p:menuitem value="Conculta" />
+				</p:submenu>
+				<p:separator />
+				<p:separator />
+				<p:submenu label="Configurações" icon="ui-icon-gear">
+					<p:menuitem value="Configuração do Sistema" icon="" />
+				</p:submenu>
+				<p:separator />
+				<p:submenu label="Relatórios">
+				</p:submenu>
+
+			</p:panelMenu>
+		</h:form>
+	</ui:define>
+</ui:composition>

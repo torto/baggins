@@ -1,0 +1,15 @@
+127.0.0.1 - - [11/Aug/2013:13:16:43 -0300] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:16:55 -0300] "GET /Baggins/ HTTP/1.1" 500 6937
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:16:55 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:17:57 -0300] "GET /Baggins/ HTTP/1.1" 200 7368
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:17:58 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:18:30 -0300] "GET /Baggins/emprestimo/emprestimo.xhtml;jsessionid=2C198EDC7DBD5EA6600AB94BAA783A92 HTTP/1.1" 200 11637
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:18:31 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:18:40 -0300] "GET /Baggins/cadastro/ambientes.xhtml?includeViewParams=false HTTP/1.1" 200 13092
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:18:40 -0300] "GET /Baggins/javax.faces.resource/resources/images/alert-overlay.png HTTP/1.1" 404 1077
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:18:40 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:19:45 -0300] "GET /Baggins/emprestimo/emprestimo.xhtml HTTP/1.1" 200 11639
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:19:46 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:19:59 -0300] "GET /Baggins/emprestimo.xhtml?includeViewParams=false HTTP/1.1" 200 16635
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:19:59 -0300] "GET /Baggins/javax.faces.resource/resources/images/alert-overlay.png HTTP/1.1" 404 1077
+0:0:0:0:0:0:0:1 - - [11/Aug/2013:13:19:59 -0300] "GET /favicon.ico HTTP/1.1" 404 973

@@ -1,0 +1,25 @@
+package br.edu.utfpr.baggins.entidades;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class EMarca extends AbstraticEnty {
+
+	@Id
+	@Column
+	private Long id;
+	
+	priva
+	
+	
+	@Override
+	public Object getIdEntidade()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

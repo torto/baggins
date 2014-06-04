@@ -1,0 +1,22 @@
+package br.com.cisterlabs.universidade.entidade;
+
+public class EFuncionario extends EPessoa
+{
+
+	private String cargo;
+	
+	public String cargoPublico;
+
+	public String getCargo()
+	{
+		return cargo;
+	}
+
+	public void setCargo(String cargo)
+	{
+		this.cargo = cargo;
+	}
+	
+	
+	
+}

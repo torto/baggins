@@ -1,0 +1,128 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1149" measuredH="675" mockupW="971" mockupH="665">
+  <controls>
+    <control controlID="11" controlTypeID="__group__" x="950" y="88" w="184" h="76" measuredW="184" measuredH="76" zOrder="1" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="0" w="-1" h="-1" measuredW="52" measuredH="21" zOrder="0" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>Usu%E1rio%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="52" y="0" w="-1" h="-1" measuredW="132" measuredH="21" zOrder="1" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>Guilherme%20Berghauser</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="34" y="17" w="-1" h="-1" measuredW="70" measuredH="21" zOrder="2" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>Permiss%E3o%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="101" y="17" w="-1" h="-1" measuredW="83" measuredH="21" zOrder="3" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>Administrador</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="__group__" x="76" y="38" w="92" h="38" measuredW="92" measuredH="38" zOrder="4" locked="false" isInGroup="11">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="92" h="38" measuredW="66" measuredH="27" zOrder="0" locked="false" isInGroup="4">
+              <controlProperties>
+                <align>right</align>
+                <size>14</size>
+                <text>Logout</text>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="13" y="10" w="16" h="16" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="4">
+              <controlProperties>
+                <src>../Imagem/icon_close.png</src>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Image" x="199" y="92" w="193" h="70" measuredW="77" measuredH="79" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="13" controlTypeID="__group__" x="178" y="10" w="971" h="665" measuredW="971" measuredH="665" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="0" y="0" w="971" h="665" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="13">
+          <controlProperties>
+            <text>Sistema%20Baggins%20%0Ahttp%3A//sistemabaggins.utfpr.br</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="70" w="971" h="99" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="13"/>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Canvas" x="178" y="175" w="229" h="429" measuredW="100" measuredH="70" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Canvas" x="178" y="600" w="971" h="49" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Canvas" x="178" y="179" w="229" h="49" measuredW="100" measuredH="70" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <color>16776960</color>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="__group__" x="217" y="180" w="152" h="48" measuredW="152" measuredH="48" zOrder="6" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Image" x="0" y="0" w="48" h="48" measuredW="128" measuredH="128" zOrder="0" locked="false" isInGroup="30">
+          <controlProperties>
+            <src>../Imagem/icon_book.png</src>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="48" y="9" w="-1" h="-1" measuredW="104" measuredH="28" zOrder="1" locked="false" isInGroup="30">
+          <controlProperties>
+            <size>20</size>
+            <text>Emp%E9stimo</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="31" controlTypeID="__group__" x="178" y="505" w="229" h="51" measuredW="229" measuredH="51" zOrder="7" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="2" w="229" h="49" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="31">
+          <controlProperties>
+            <backgroundAlpha>0.25</backgroundAlpha>
+            <color>16776960</color>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="__group__" x="25" y="0" w="180" h="48" measuredW="180" measuredH="48" zOrder="1" locked="false" isInGroup="31">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="48" y="14" w="-1" h="-1" measuredW="132" measuredH="28" zOrder="0" locked="false" isInGroup="1">
+              <controlProperties>
+                <size>20</size>
+                <text>Configura%E7%F5es</text>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="0" w="48" h="48" measuredW="128" measuredH="128" zOrder="1" locked="false" isInGroup="1">
+              <controlProperties>
+                <src>../Imagem/icon_conf.png</src>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="32" controlTypeID="__group__" x="178" y="553" w="229" h="51" measuredW="229" measuredH="51" zOrder="8" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="2" w="229" h="49" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="32">
+          <controlProperties>
+            <backgroundAlpha>0.25</backgroundAlpha>
+            <color>16776960</color>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="__group__" x="41" y="0" w="148" h="48" measuredW="148" measuredH="48" zOrder="1" locked="false" isInGroup="32">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="54" y="14" w="-1" h="-1" measuredW="94" measuredH="28" zOrder="0" locked="false" isInGroup="1">
+              <controlProperties>
+                <size>20</size>
+                <text>Relat%F3rios</text>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="0" w="48" h="48" measuredW="128" measuredH="128" zOrder="1" locked="false" isInGroup="1">
+              <controlProperties>
+                <src>../Imagem/icon_rela.png</src>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>

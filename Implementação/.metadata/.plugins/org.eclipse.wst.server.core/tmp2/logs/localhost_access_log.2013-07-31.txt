@@ -1,0 +1,14 @@
+127.0.0.1 - - [31/Jul/2013:22:31:36 -0300] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:31:45 -0300] "GET /Baggins/ HTTP/1.1" 404 967
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:31:45 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+127.0.0.1 - - [31/Jul/2013:22:35:19 -0300] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:35:28 -0300] "GET /Baggins/ HTTP/1.1" 200 6858
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:35:29 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:35:36 -0300] "GET /Baggins/cadastro/ambientes.xhtml?includeViewParams=false HTTP/1.1" 200 12781
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:35:37 -0300] "GET /Baggins/javax.faces.resource/resources/images/alert-overlay.png HTTP/1.1" 404 1077
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:35:37 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:37:41 -0300] "GET /Baggins/emprestimo.xhtml?includeViewParams=false HTTP/1.1" 200 16141
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:37:41 -0300] "GET /Baggins/javax.faces.resource/resources/images/alert-overlay.png HTTP/1.1" 404 1077
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:37:41 -0300] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:37:47 -0300] "GET /Baggins/cadastro/ambientes.xhtml?includeViewParams=false HTTP/1.1" 500 5884
+0:0:0:0:0:0:0:1 - - [31/Jul/2013:22:37:47 -0300] "GET /favicon.ico HTTP/1.1" 404 973

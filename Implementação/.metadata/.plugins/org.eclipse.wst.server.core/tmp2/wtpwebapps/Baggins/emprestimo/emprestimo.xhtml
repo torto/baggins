@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<ui:composition template="../template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="centro">
+
+		<div id="tituloPagina">
+
+			<h1>Emprestimo</h1>
+
+		</div>
+
+		<div id="corpoPagina">
+
+			<h:form id="buscar">
+
+				<p:fieldset style="margin-top:10px" legend="Buscar"
+					toggleable="true" toggleSpeed="500" collapsed="true">
+
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Buscar:" />
+						<h:inputText styleClass="edtBusca" />
+						<h:button value="Buscar" styleClass="btBusca" />
+					</h:panelGrid>
+
+					<p:dataTable id="dataTable" var="material"
+						value="#{emprestimoBean.material}" style="width:100%"
+						paginator="true" rows="10" rowKey="#{material.id}"
+						selectionMode="single"
+						selection="#{emprestimoBean.materialSelecionadoGrid}"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+						<p:ajax event="rowSelect" listener="#{emprestimoBean.onRowSelect}"
+							update=":campoEmprestimo:imgCodMat :campoEmprestimo:codMat" />
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Material" />
+							</f:facet>
+							<h:outputText value="#{material.nome}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Descrição" />
+							</f:facet>
+							<h:outputText value="#{material.descricao}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Modelo" />
+							</f:facet>
+							<h:outputText value="#{material.modelo.nome}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Marca" />
+							</f:facet>
+							<h:outputText value="#{material.marca.nome}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:fieldset>
+
+			</h:form>
+
+			<div id="tituloPaginaFull" />
+
+			<h:form id="campoEmprestimo">
+
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Tipo de Material:" />
+
+					<p:selectOneMenu id="tipoMaterial"
+						value="#{emprestimoBean.tipoMaterialSelecionado}">
+						<f:selectItems value="#{emprestimoBean.mapaTipoMaterial}"
+							var="item" itemValue="#{item}" itemLabel="#{item}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+
+
+				<h:panelGrid columns="5" style="margin-top:20px">
+
+
+					<h:outputLabel value="Código do Usuário:" for="codUsu" />
+
+					<h:panelGroup>
+						<h:inputText styleClass="edtBusca" id="codUsu"
+							style="width:152px;">
+							<p:ajax event="keyup"
+								listener="#{emprestimoBean.listenerCodUsuario}"
+								update="campoEmprestimo:imgCodUsu" />
+
+						</h:inputText>
+						<p:graphicImage library="images" id="imgCodUsu" name="alerta.png"
+							style="width: 12px;height: 12px; margin-left: 2px;margin-right: -12px;" />
+					</h:panelGroup>
+
+					<h:graphicImage library="images" styleClass="verticalLinha"
+						name="vertical2.png" />
+
+
+					<h:outputLabel value="Código do Material:" for="codMat" />
+
+					<h:panelGroup>
+						<h:inputText id="codMat" maxlength="10"
+							value="#{emprestimoBean.materialSelecionadoGrid.codigoBarras}"
+							styleClass="edtBusca">
+							<p:ajax event="keyup"
+								listener="#{emprestimoBean.listenerCodMaterial}"
+								update="campoEmprestimo:imgCodMat" />
+						</h:inputText>
+						<p:graphicImage library="images" id="imgCodMat" name="alerta.png"
+							style="width: 12px;height: 12px; margin-left: 2px;margin-right: -14px;" />
+					</h:panelGroup>
+
+					<h:panelGroup />
+					<h:panelGroup />
+
+					<h:graphicImage library="images" styleClass="verticalLinha"
+						name="vertical2.png" />
+
+					<h:outputLabel value="Quantidade:" for="quant" style="float:right" />
+					<h:inputText styleClass="edtBusca" id="quant" required="true" />
+
+				</h:panelGrid>
+				<h:message for="codUsu" style="color: red; width: 10%"
+					showDetail="false" showSummary="true" />
+
+
+				<h:commandButton styleClass="btBusca"
+					style="margin-top: 25px; margin-right: 15%; float: right"
+					value="Adicionar" />
+
+				<div id="tituloPaginaFull" />
+
+			</h:form>
+			<br />
+			<h2>Materiais Adicionados</h2>
+
+			<h:form id="tabelaEmprestimos">
+
+				<p:dataTable id="materialEmprestimo" var="material"
+					style="margin: 5px"
+					value="#{emprestimoBean.arrayMaterialEmprestimo}">
+
+					<p:column headerText="Material" style="width:24%">
+						<h:outputText value="#{material.material.nome}" />
+					</p:column>
+
+					<p:column headerText="Ambiente" style="width:24%">
+						<h:outputText value="#{material.ambiente}" />
+					</p:column>
+
+					<p:column headerText="Quantidade" style="width:24%">
+						<h:outputText value="#{material.quantidade}" />
+					</p:column>
+
+					<p:column style="width:4%" headerText="Excluir">
+						<p:commandButton id="selectButton" onclick="dialodTeste.show()"
+							icon="ui-icon ui-icon-closethick" title="View">
+							<f:setPropertyActionListener value="#{material}"
+								target="#{emprestimoBean.emprestimoMaterial}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:dialog header="Teste Dialog" widgetVar="dialodTeste"
+					showEffect="fade" hideEffect="explode" closable="true">
+
+					<h:panelGrid id="display" columns="2" cellpadding="4"
+						style="margin:0 auto;">
+
+						<f:facet name="header">
+							<h:outputText value="HEADER" />
+						</f:facet>
+
+						<h:outputText value="Model:" />
+						<h:outputText value="teste" style="font-weight:bold" />
+
+						<p:commandButton value="Sim" onclick="dialodTeste.hide()" />
+
+
+					</h:panelGrid>
+
+				</p:dialog>
+
+			</h:form>
+
+			<div class="conteudoInterno"></div>
+		</div>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,76 @@
+package br.edu.utfpr.baggins.entidades;
+
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.TabelaDinamica;
+
+@ManagedBean(eager=true)
+public class ECategoria extends AbstraticEnty
+{
+	/**
+	 * 
+	 */
+//	@TabelaDinamica(visivel=false, grid=false)
+//	private static final long serialVersionUID = 8216477391883547306L;
+
+	@TabelaDinamica(visivel = false)
+	private Long id;
+
+	@TabelaDinamica(grid = true)
+	private String nome;
+
+	@TabelaDinamica(nomeCampo = "Sobrenome TEste", grid = true)
+	private String sobrenome;
+
+	@TabelaDinamica(grid = false)
+	private String telefone;
+
+	public String getNome()
+	{
+		return nome;
+	}
+
+	public void setNome(String nome)
+	{
+		this.nome = nome;
+	}
+
+	public String getSobrenome()
+	{
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome)
+	{
+		this.sobrenome = sobrenome;
+	}
+
+	public String getTelefone()
+	{
+		return telefone;
+	}
+
+	public void setTelefone(String telefone)
+	{
+		this.telefone = telefone;
+	}
+
+	public Long getId()
+	{
+		return id;
+	}
+
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+
+	@Override
+	public Object getIdEntidade()
+	{
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+}

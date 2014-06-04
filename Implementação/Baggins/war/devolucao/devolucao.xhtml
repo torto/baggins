@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<ui:composition template="../template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="centro">
+
+		<div id="tituloPagina">
+
+			<h1>Devolução</h1>
+
+		</div>
+
+		<div id="corpoPagina">
+
+			<h:form id="buscar">
+
+				<p:fieldset style="margin-top:10px" legend="Buscar"
+					toggleable="true" toggleSpeed="500" collapsed="true">
+
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Buscar:" />
+						<h:inputText styleClass="edtBusca" />
+						<h:button value="Buscar" styleClass="btBusca" />
+					</h:panelGrid>
+
+					<p:dataTable id="dataTable" var="material"
+						value="#{devolucaoBean.listaBuscar}" style="width:100%"
+						paginator="true" rows="10" rowKey="#{material.id}"
+						selectionMode="single"
+						selection="#{devolucaoBean.materialSelecionado}"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Material" />
+							</f:facet>
+							<h:outputText value="#{material.nome}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Descrição" />
+							</f:facet>
+							<h:outputText value="#{material.descricao}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Modelo" />
+							</f:facet>
+							<h:outputText value="#{material.modelo.nome}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Marca" />
+							</f:facet>
+							<h:outputText value="#{material.marca.nome}" />
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
+
+			</h:form>
+
+			<div id="tituloPaginaFull" />
+
+
+			<div id="campos">
+
+				<h:panelGrid columns="2" style="margin-left: -9%">
+
+					<!-- Primeira Linha Grid - CAMPOS -->
+					<h:panelGrid columns="2" rowClasses="textoDireita">
+						<h:outputLabel value="Código do Usuário:" for="codUsu" />
+						<h:inputText styleClass="edtBusca" id="codUsu" required="true" />
+
+						<h:outputLabel value="Tipo Material:" for="tipoMaterial" />
+						<p:selectOneMenu style="width:100%;  margin-right: 22px;"
+							id="tipoMaterial"
+							value="#{devolucaoBean.tipoMaterialSelecionado}" required="true">
+							<f:selectItems value="#{devolucaoBean.mapaTipoMaterial}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Código do Material:" for="codMat" />
+						<h:inputText styleClass="edtBusca" id="codMat" required="true" />
+
+
+						<h:outputLabel value="Quantidade:" for="qtd" />
+						<h:panelGroup>
+							<h:inputText styleClass="edtBusca" id="qtd" required="true" />
+							<h:selectBooleanCheckbox style="float:left" id="baixar" />
+							<h:outputLabel style="float:left" value="Baixar do Estoque"
+								for="baixar" />
+						</h:panelGroup>
+
+						<h:outputLabel value="Justificativa/Observações:" for="obs" />
+						<h:inputTextarea styleClass="edtBusca" id="obs" rows="5" />
+
+					</h:panelGrid>
+
+					<!-- Segunda Linha grida - BOTÃO CONFIRMAÇÃO -->
+
+
+					<h:commandButton value="Confirmar Devolução"
+						styleClass="botaoGrande"  style="margin-left: 35px;" />
+
+				</h:panelGrid>
+
+
+				<div id="tituloPaginaFull" />
+
+				<h:panelGrid columns="2" styleClass="tabelaCentral">
+
+					<h:outputLabel value="Usuário:"
+						style="border-bottom: 1px solid #BDB9BA; float: right;" />
+					<h:outputLabel value="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+						style="border-bottom: 1px solid #BDB9BA" />
+
+					<h:outputLabel value="Data Empréstimo:"
+						style="border-bottom: 1px solid #BDB9BA; float: right;" />
+					<h:outputLabel value="XXXXXXX"
+						style="border-bottom: 1px solid #BDB9BA; text-align: right;" />
+
+					<h:outputLabel value="Data prevísta de devolução:"
+						style="border-bottom: 1px solid #BDB9BA; float: right;" />
+					<h:outputLabel value="XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+						style="border-bottom: 1px solid #BDB9BA" />
+
+				</h:panelGrid>
+
+
+			</div>
+
+		</div>
+	</ui:define>
+</ui:composition>

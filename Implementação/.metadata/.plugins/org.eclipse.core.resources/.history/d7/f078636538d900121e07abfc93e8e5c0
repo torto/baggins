@@ -1,0 +1,208 @@
+package br.edu.utfpr.baggins.util;
+
+import org.hibernate.Session;
+
+public class CSessao
+{
+	private Session sessao;
+	
+	public CSessao()
+	{
+		
+	}
+	
+	public Session abrirSessao()
+	{
+		sessao = HibernateUtil.currentSession().getSessionFactory()
+				.openSession();
+		sessao.beginTransaction();
+
+		return sessao;
+		// sesso.save(categoria);
+		//
+		// sesso.getTransaction().commit();
+		// sesso.close();
+	}
+
+	public int inserir(Object objt, boolean commit)
+	{
+		int i = 0;
+		try
+		{
+
+			if (!sessao.isOpen())
+			{
+				i = -1;
+			}
+
+			sessao.save(objt);
+
+			if (commit)
+			{
+				sessao.flush();
+				sessao.getTransaction().commit();
+			}
+
+			i = 1;
+		}
+		catch (Exception e)
+		{
+			if (commit)
+			{
+				sessao.getTransaction().rollback();
+				sessao.disconnect();
+				e.printStackTrace();
+			}
+			i = -1;
+		}
+		
+		return i;
+	}
+	
+	public int inserirOuAlterar(Object objt, boolean commit)
+	{
+		int i = 0;
+		try
+		{
+			if (!sessao.isOpen())
+			{
+				i = -1;
+			}
+
+			sessao.saveOrUpdate(objt);
+
+			if (commit)
+			{
+				sessao.flush();
+				sessao.getTransaction().commit();
+			}
+
+			i = 1;
+		}
+		catch (Exception e)
+		{
+			if (commit)
+			{
+				sessao.getTransaction().rollback();
+				sessao.disconnect();
+				e.printStackTrace();
+			}
+			i = -1;
+		}
+		
+		return i;
+	}
+	
+	public int alterar(Object objt, boolean commit)
+	{
+		int i = 0;
+		try
+		{
+			
+
+			if (!sessao.isOpen())
+			{
+				i = -1;
+			}
+
+			sessao.update(objt);
+
+			if (commit)
+			{
+				sessao.flush();
+				sessao.getTransaction().commit();
+			}
+
+			i = 1;
+		}
+		catch (Exception e)
+		{
+			if (commit)
+			{
+				sessao.getTransaction().rollback();
+				sessao.disconnect();
+				e.printStackTrace();
+			}
+			i = -1;
+		}
+		
+		return i;
+	}
+	
+	public int excluir(Object objt, boolean commit)
+	{
+		int i = 0;
+		try
+		{
+			
+
+			if (!sessao.isOpen())
+			{
+				i = -1;
+			}
+
+			sessao.delete(objt);
+
+			if (commit)
+			{
+				sessao.flush();
+				sessao.getTransaction().commit();
+			}
+
+			i = 1;
+		}
+		catch (Exception e)
+		{
+			if (commit)
+			{
+				sessao.getTransaction().rollback();
+				sessao.disconnect();
+				e.printStackTrace();
+			}
+			i = -1;
+		}
+		
+		return i;
+	}
+	
+	public Criteria createCriteria(Class type)
+	{
+		return session.createCriteria(type);
+	}
+
+	public Criteria createCriteria(Class type, String alias)
+	{
+		return session.createCriteria(type, alias);
+	}
+
+	public SQLQuery createSQLQuery(String string)
+	{
+		return session.createSQLQuery(string);
+	}
+
+	public Query createQuery(String string)
+	{
+		return session.createQuery(string);
+	}
+
+	public void lock(Object object)
+	{
+		session.lock(object, LockMode.NONE);
+	}
+
+	public void commit()
+	{
+		session.getTransaction().commit();
+	}
+
+	public void rollback()
+	{
+		session.getTransaction().rollback();
+	}
+
+	public void beginTransaction()
+	{
+		session.beginTransaction();
+	}
+
+}

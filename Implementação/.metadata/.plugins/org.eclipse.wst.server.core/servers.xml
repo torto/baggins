@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<servers>
+  <server auto-publish-setting="2" auto-publish-time="0" hostname="localhost" id="GlassFish 3.1.2 at localhost" name="GlassFish 3.1.2 at localhost" runtime-id="GlassFish 3.1.2" server-type="org.glassfish.jst.server.glassfish312" server-type-id="org.glassfish.jst.server.glassfish312" start-timeout="240" stop-timeout="240" timestamp="5">
+    <list key="Generic_Server_Modules_List" value0="org.eclipse.jst.jee.server:Baggins"/>
+    <map key="generic_server_instance_properties" sunappserver.adminname="admin" sunappserver.adminpassword="" sunappserver.adminserverportnumber="4848" sunappserver.domainpath="C:\Users\torto\Desktop\Universidade\Beatriz\Trabalho Master\trunk\Implementação\servidor\glassfish3\glassfish\domains\domain1" sunappserver.keepSessions="true" sunappserver.serveraddress="localhost" sunappserver.serverportnumber="8080"/>
+    <list key="modules" value0="Baggins::org.eclipse.jst.jee.server:Baggins::jst.web::3.0"/>
+  </server>
+  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Tomcat v7.0 Server at localhost-config" deployDir="wtpwebapps" hostname="localhost" id="Tomcat v7.0 Server at localhost" name="Tomcat v7.0 Server at localhost" runtime-id="Apache Tomcat v7.0" server-type="org.eclipse.jst.server.tomcat.70" server-type-id="org.eclipse.jst.server.tomcat.70" start-timeout="45" stop-timeout="15" testEnvironment="true" timestamp="1">
+    <list key="modules" value0="Baggins::org.eclipse.jst.jee.server:Baggins::jst.web::3.0"/>
+  </server>
+</servers>

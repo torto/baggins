@@ -1,0 +1,106 @@
+package br.edu.utfpr.baggins.client;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlPanelGroup;
+import javax.faces.context.FacesContext;
+
+import org.hibernate.Query;
+
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.CTabelaDinamica;
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.TabelaDinamicaBean;
+import br.edu.utfpr.baggins.entidades.ECategoria;
+import br.edu.utfpr.baggins.util.CSessao;
+
+@ManagedBean
+@ViewScoped
+public class CTelaEmprestimo implements Serializable
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -550762619228438294L;
+	private HtmlPanelGroup topo;
+	private CTabelaDinamica tabela;
+	private ECategoria categoria;
+
+	public CTelaEmprestimo()
+	{
+
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().clear();
+		instanciarItens();
+		setarInformacoes();
+	}
+
+//	@PostConstruct
+//	public void ini()
+//	{
+//		System.out.println("LOGAR");
+//		if (tabela != null)
+//		{
+//			TabelaDinamicaBean a= new TabelaDinamicaBean();
+//			a.finalizarScope();
+//			tabela = null;
+//			instanciarTabela();
+//			
+//		}
+//	}
+
+	private void instanciarItens()
+	{
+		topo = new HtmlPanelGroup();
+
+		// form TEste
+		categoria = new ECategoria();
+
+		instanciarTabela();
+	}
+	
+	private void instanciarTabela(){
+		tabela = new CTabelaDinamica(ECategoria.class)
+		{
+
+			@Override
+			public List<?> arrayList()
+			{
+				ArrayList<ECategoria> aa = new ArrayList<ECategoria>();
+
+				CSessao sessao = new CSessao();
+				sessao.abrirSessao();
+
+				Query q = sessao
+						.createQuery("SELECT categoria FROM br.edu.utfpr.baggins.entidades.ECategoria categoria");
+
+				aa = (ArrayList<ECategoria>) q.list();
+				return aa;
+			}
+		};
+	}
+
+	private void setarInformacoes()
+	{
+
+		topo.setLayout("block");
+		topo.getChildren().add(tabela.getPrincipal());
+
+	}
+
+	public HtmlPanelGroup getTopo()
+	{
+		return topo;
+	}
+
+	public void setTopo(HtmlPanelGroup topo)
+	{
+		this.topo = topo;
+	}
+
+}

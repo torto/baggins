@@ -1,0 +1,444 @@
+package br.edu.utfpr.baggins.client.componentes.ctabeladinamica;
+
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlForm;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.html.HtmlOutputText;
+import javax.faces.component.html.HtmlPanelGrid;
+import javax.faces.component.html.HtmlPanelGroup;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.component.behavior.ajax.AjaxBehavior;
+import org.primefaces.component.behavior.ajax.AjaxBehaviorListenerImpl;
+import org.primefaces.component.column.Column;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.event.SelectEvent;
+
+import br.edu.utfpr.baggins.entidades.AbstraticEnty;
+
+public abstract class CTabelaDinamica implements Serializable
+{
+
+	private static final long serialVersionUID = 3102178485103350259L;
+
+	private Class<?> objetoClass;
+	private Object objeto;
+
+	private UIComponent campoNovo;
+
+	private HtmlPanelGrid formCampos;
+
+	private HtmlCommandButton btnAdicionar;
+	private HtmlCommandButton btnCancelar;
+	private HtmlCommandButton btnExcluir;
+	private static HtmlPanelGroup formButtons;
+
+	private DataTable grid;
+	private FacesContext fc;
+	private Application application;
+	private ExpressionFactory ef;
+	private ELContext elc;
+
+	private ArrayList<Column> colunas;
+	private static List<Object> array;
+
+	private static HashMap<String, UIComponent> colunsMap;
+
+	private HtmlPanelGroup principal;
+	private HtmlForm form;
+
+	private Object objetoSelecionado;
+
+	public CTabelaDinamica(Class objeto)
+	{
+
+		this.objetoClass = objeto;
+
+		instaciarObjetos();
+		controleGrid();
+		controleForms();
+		adicionarBotoes();
+		setarInformacoes();
+
+	}
+
+	private void instaciarObjetos()
+	{
+		form = new HtmlForm();
+		grid = new DataTable();
+
+		objetoSelecionado = new Object();
+
+		fc = FacesContext.getCurrentInstance();
+		application = fc.getApplication();
+		ef = application.getExpressionFactory();
+		elc = fc.getELContext();
+
+		colunas = new ArrayList<Column>();
+
+		colunsMap = new HashMap<String, UIComponent>();
+
+		principal = new HtmlPanelGroup();
+		formCampos = new HtmlPanelGrid();
+
+		btnAdicionar = new HtmlCommandButton();
+		btnCancelar = new HtmlCommandButton();
+		btnExcluir = new HtmlCommandButton();
+	}
+
+	private void setarInformacoes()
+	{
+		principal.setId("princial");
+		grid.setId("grid");
+		formCampos.setId("formCampos");
+
+		setColunasForms(2);
+
+		btnExcluir.setValue("Excluir");
+		btnExcluir.setId("excluirBotao");
+		btnExcluir.setStyleClass("btBuscaDesabilitado");
+		btnExcluir.setDisabled(true);
+
+		btnCancelar.setValue("Cancelar");
+		btnCancelar.setId("cancelarBotao");
+		btnCancelar.setStyleClass("btBusca");
+
+		btnAdicionar.setValue("Adicionar");
+		btnAdicionar.setId("adicionarBotao");
+		btnAdicionar.setStyleClass("btBusca");
+
+		btnAdicionar.setActionExpression(CControleTabelaDinamica
+				.criasMethodExpression("#{tabelaDinamicaBean.botaoAdicionar}",
+						Object.class));
+
+		btnCancelar.setActionExpression(CControleTabelaDinamica
+				.criasMethodExpression("#{tabelaDinamicaBean.botaoCancelar}",
+						Object.class));
+
+		btnExcluir.setActionExpression(CControleTabelaDinamica
+				.criasMethodExpression("#{tabelaDinamicaBean.botaoCancelar}",
+						Object.class));
+
+	}
+
+	private void controleGrid()
+	{
+		colunasGrid();
+
+		array = (List<Object>) arrayList();
+
+		grid.setRendered(true);
+		grid.setVar("item");
+		grid.setSelectionMode("single");
+
+		ValueExpression valueArr = ef.createValueExpression(elc,
+				"#{tabelaDinamicaBean.model}", Object.class);
+		grid.setValueExpression("value", valueArr);
+
+		ValueExpression valueSele = ef.createValueExpression(elc,
+				"#{tabelaDinamicaBean.objetoSelecionado}", Object.class);
+
+		grid.setValueExpression("selection", valueSele);
+
+		ValueExpression valueRow = ef.createValueExpression(elc, "#{item.id}",
+				Object.class);
+		grid.setValueExpression("rowKey", valueRow);
+
+		AjaxBehavior tableAjaxBehavior = new AjaxBehavior();
+		tableAjaxBehavior.setUpdate(":formPrincipal:formCampos");
+
+		MethodExpression me = ef.createMethodExpression(elc,
+				"#{tabelaDinamicaBean.onRowSelect}", Void.class, new Class<?>[]
+				{});
+		tableAjaxBehavior.addAjaxBehaviorListener(new AjaxBehaviorListenerImpl(
+				me, me));
+		tableAjaxBehavior.setListener(me);
+		tableAjaxBehavior.setProcess("@parent");
+
+		grid.addClientBehavior("rowSelect", tableAjaxBehavior);
+
+		for (int i = 0; i < TabelaDinamicaBean.getNomeColunasMap().size(); i++)
+		{
+			try
+			{
+				HtmlOutputText saida = (HtmlOutputText) application
+						.createComponent(HtmlOutputText.COMPONENT_TYPE);
+
+				ValueExpression nameValueExp = ef.createValueExpression(
+						elc,
+						"#{item."
+								+ TabelaDinamicaBean.getNomeColunasMap().get(i)
+								+ "}", Object.class);
+				saida.setValueExpression("value", nameValueExp);
+				colunsMap.get(TabelaDinamicaBean.getNomeColunasMap().get(i))
+						.getChildren().add(saida);
+
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		principal.getChildren().add(grid);
+	}
+
+	private void colunasGrid()
+	{
+		int colunaAcres = 0;
+		for (Field field : getFieldObjeto())
+		{
+			for (Annotation anotation : field.getDeclaredAnnotations())
+			{
+				if (anotation instanceof TabelaDinamica)
+				{
+					TabelaDinamica tab = (TabelaDinamica) anotation;
+					if (tab.grid())
+					{
+						Column coluna = new Column();
+						coluna.setHeaderText(nomeDoParametro(field));
+
+						colunsMap.put(field.getName(), coluna);
+						TabelaDinamicaBean.getNomeColunasMap().put(colunaAcres,
+								field.getName());
+						grid.getChildren().add(coluna);
+						colunaAcres++;
+					}
+				}
+			}
+
+		}
+	}
+
+	public void adicionarCampo(String descricao, UIComponent widget)
+	{
+		principal.getChildren().add(gerarFormCampo(descricao, widget));
+	}
+
+	private HtmlPanelGrid gerarFormCampo(String descricao, UIComponent widget)
+	{
+		formCampos.setRowClasses("textoDireita");
+		HtmlOutputText campoDescricao = new HtmlOutputText();
+
+		campoDescricao.setValue(descricao + ":");
+
+		if (widget instanceof HtmlInputText)
+		{
+			((HtmlInputText) widget).setStyleClass("edtBusca");
+		}
+
+		formCampos.getChildren().add(campoDescricao);
+		formCampos.getChildren().add(widget);
+
+		return formCampos;
+
+	}
+
+	private void adicionarBotoes()
+	{
+		HtmlPanelGrid formcampos = getFormCampos();
+		formButtons = new HtmlPanelGroup();
+		HtmlOutputText vazio = new HtmlOutputText();
+
+		TabelaDinamicaBean.getButtonMap().put("cancelar", btnCancelar);
+		TabelaDinamicaBean.getButtonMap().put("excluir", btnExcluir);
+		TabelaDinamicaBean.getButtonMap().put("adicionar", btnAdicionar);
+
+		formButtons.getChildren().add(btnAdicionar);
+		formButtons.getChildren().add(btnCancelar);
+		formButtons.getChildren().add(btnExcluir);
+
+		formcampos.getChildren().add(vazio);
+		formcampos.getChildren().add(formButtons);
+		formcampos.setId("formCampos");
+	}
+
+	private void controleForms()
+	{
+		try
+		{
+			for (Field field : getFieldObjeto())
+			{
+				field.setAccessible(true);
+				String nome = nomeDoParametro(field);
+				String classe = null;
+				String where = null;
+				if (nome != null)
+				{
+					if (field.getType().getClass().getSuperclass() == AbstraticEnty.class)
+					{
+
+						campoNovo = new SelectOneMenu();
+						
+						TabelaDinamicaBean.setClasseCombo(field.getType().getClass().toString());
+						
+						for (Annotation ano : field.getDeclaredAnnotations())
+						{
+							if (ano instanceof TabelaDinamica)
+							{
+								if(!((TabelaDinamica)ano).whereComboBox().isEmpty()){
+									TabelaDinamicaBean.setWhereCombo(((TabelaDinamica)ano).whereComboBox());
+								}
+							}
+						}
+						
+						campoNovo.setId(nome);
+						UISelectItems selectItem = new UISelectItems();
+						selectItem.setValueExpression("value", CControleTabelaDinamica.criarValueExpression("#{tabelaDinamicaBean.listComboBox}", Object.class));
+						campoNovo.setValueExpression("value", CControleTabelaDinamica.criarValueExpression("#{tabelaDinamicaBean.comboSelecionado}", Object.class));
+						campoNovo.getChildren().add(selectItem);
+						
+					}
+					else
+					{
+						campoNovo = new HtmlInputText();
+
+					}
+
+					TabelaDinamicaBean.getInputsMap().put(field.getName(),
+							campoNovo);
+					adicionarCampo(nome, campoNovo);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private String nomeDoParametro(Field field)
+	{
+		String retorno = null;
+		Annotation[] annotation = field.getDeclaredAnnotations();
+
+		if (annotation.length != 0)
+		{
+			for (Annotation ano : annotation)
+			{
+
+				if (ano instanceof TabelaDinamica)
+				{
+					TabelaDinamica tabela = (TabelaDinamica) ano;
+					if (tabela.visivel())
+					{
+						if (!tabela.nomeCampo().isEmpty())
+						{
+							retorno = tabela.nomeCampo();
+						}
+						else
+						{
+							retorno = retornoNomeSimples(field);
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			retorno = retornoNomeSimples(field);
+		}
+
+		return retorno;
+	}
+
+	public void setarEventos(SelectEvent event)
+	{
+
+	}
+
+	private String retornoNomeSimples(Field field)
+	{
+		String retorno = field.getName();
+		retorno = retorno.substring(0, 1).toUpperCase() + retorno.substring(1);
+
+		return retorno;
+	}
+
+	private Field[] getFieldObjeto()
+	{
+		return objetoClass.getDeclaredFields();
+	}
+
+	public Class<?> getObjetoClass()
+	{
+		return objetoClass;
+	}
+
+	public void setObjetoClass(Class<?> objeto)
+	{
+		this.objetoClass = objeto;
+	}
+
+	public HtmlPanelGroup getPrincipal()
+	{
+		return principal;
+	}
+
+	public void setPrincipal(HtmlPanelGroup principal)
+	{
+		this.principal = principal;
+	}
+
+	public void setColunasForms(int colunas)
+	{
+		formCampos.setColumns(colunas);
+	}
+
+	public void setStyleClassForms(String style)
+	{
+		formCampos.setStyleClass(style);
+	}
+
+	public HtmlPanelGrid getFormCampos()
+	{
+		return formCampos;
+	}
+
+	public void setFormCampos(HtmlPanelGrid formCampos)
+	{
+		this.formCampos = formCampos;
+	}
+
+	public Object getObjetoSelecionado()
+	{
+		return objetoSelecionado;
+	}
+
+	public void setObjetoSelecionado(Object objetoSelecionado)
+	{
+		this.objetoSelecionado = objetoSelecionado;
+	}
+
+	public static List<Object> getArray()
+	{
+		return array;
+	}
+
+	public void setArray(List<Object> array)
+	{
+		this.array = array;
+	}
+
+	public static HtmlPanelGroup getFormButtons()
+	{
+		return formButtons;
+	}
+
+	public abstract List<?> arrayList();
+
+}

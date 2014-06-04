@@ -1,0 +1,21 @@
+package br.edu.utfpr.baggins.entidades;
+
+import java.util.List;
+
+import javax.faces.component.html.HtmlCommandButton;
+
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.CTabelaDinamica;
+
+public class EEmprestimo  {
+
+	CTabelaDinamica aa = new CTabelaDinamica(EEmprestimo.class)
+	{
+		
+		@Override
+		public List<?> arrayList()
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
+}

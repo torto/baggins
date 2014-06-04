@@ -1,0 +1,83 @@
+package br.edu.utfpr.baggins.client.cadastro.ambientes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlPanelGroup;
+
+import org.hibernate.Query;
+
+import br.edu.utfpr.baggins.client.componentes.ctabeladinamica.CTabelaDinamica;
+import br.edu.utfpr.baggins.entidades.EAmbiente;
+import br.edu.utfpr.baggins.util.CSessao;
+
+@ManagedBean
+@ViewScoped
+public class CTelaAmbientes 
+{
+
+	private HtmlPanelGroup pgPagina;
+	
+	private CTabelaDinamica tabela;
+	
+	private ArrayList<EAmbiente> array;
+	
+	private EAmbiente ambiente;
+	
+	public CTelaAmbientes()
+	{
+		instanciarItens();
+		setarInformacoes();
+	}
+	
+	private void instanciarItens(){
+		
+		pgPagina = new HtmlPanelGroup();
+		
+		ambiente = new EAmbiente();
+		
+		tabela = new CTabelaDinamica(ambiente.getClass())
+		{
+			
+			@Override
+			public List<?> arrayList()
+			{
+				
+				CSessao sessao = new CSessao();
+				sessao.abrirSessao();
+				
+				Query q = sessao.createQuery("SELECT ambiente FROM br.edu.utfpr.baggins.entidades.EAmbiente ambiente");
+				
+				array = (ArrayList<EAmbiente>) q.list();
+				
+				return array;
+			}
+		};
+		
+	}
+	
+	private void setarInformacoes()
+	{
+		
+		pgPagina.setLayout("block");
+		pgPagina.getChildren().add(tabela.getPrincipal());
+
+	}
+
+	public HtmlPanelGroup getPgPagina()
+	{
+		return pgPagina;
+	}
+
+	public void setPgPagina(HtmlPanelGroup pgPagina)
+	{
+		this.pgPagina = pgPagina;
+	}
+
+
+	
+	
+}
